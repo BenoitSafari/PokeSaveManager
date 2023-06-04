@@ -1,51 +1,56 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace PokeSaveManager.Mono;
-
-public class Main : Microsoft.Xna.Framework.Game
+namespace PokeSaveManager.Mono.src
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-
-    public Main()
+    public class Main : Game
     {
-        _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private readonly GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
+        public Main()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
 
-        base.Initialize();
-    }
+            Debug.WriteLine(Core.Services.UserConfig.GetAppSettings());
+        }
 
-    protected override void LoadContent()
-    {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        protected override void Initialize()
+        {
+            // TODO: Add your initialization logic here
 
-        // TODO: use this.Content to load your game content here
-    }
+            base.Initialize();
+        }
 
-    protected override void Update(GameTime gameTime)
-    {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // TODO: Add your update logic here
+            // TODO: use this.Content to load your game content here
+        }
 
-        base.Update(gameTime);
-    }
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+            // TODO: Add your update logic here
 
-        // TODO: Add your drawing code here
+            base.Update(gameTime);
+        }
 
-        base.Draw(gameTime);
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            // TODO: Add your drawing code here
+
+            base.Draw(gameTime);
+        }
     }
 }

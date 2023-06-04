@@ -13,7 +13,6 @@
             "program": "${workspaceFolder}/PokeSaveManager.Mono/bin/Debug/net6.0/PokeSaveManager.Mono.dll",
             "args": [],
             "cwd": "${workspaceFolder}/PokeSaveManager.Mono",
-            "console": "externalTerminal",
             "stopAtEntry": false,
         },
         {
