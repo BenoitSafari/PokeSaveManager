@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using PokeSaveManager.Core;
+using PokeSaveManager.Core.AppSettings;
+using PokeSaveManager.Core.Services;
 
 namespace PokeSaveManager.Mono.src
 {
@@ -10,46 +12,48 @@ namespace PokeSaveManager.Mono.src
     {
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private readonly AppSettings _appSettings = JsonService.Deserialize<AppSettings>(Constants.AppSettingsPath);
 
+        /// <summary>
+        /// Instantiates the GraphicsDeviceManager and initializes MonoGame settings
+        /// </summary>
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
 
-            Debug.WriteLine(Core.Services.UserConfig.GetAppSettings());
+            // MonoGame settings initialization
+            Content.RootDirectory = Constants.ContentPath;
+            Window.Title = $"{Constants.AppName} {Constants.AppVersion}";
+            Window.AllowUserResizing = false;
+            Window.AllowAltF4 = true;
+            IsMouseVisible = true; // _appSettings.Graphics.MouseVisibility;
+            _graphics.PreferredBackBufferWidth = _appSettings.Graphics.Width;
+            _graphics.PreferredBackBufferHeight = _appSettings.Graphics.Height;
+            _graphics.IsFullScreen = false; // _appSettings.Graphics.Fullscreen;
+            _graphics.HardwareModeSwitch = false; // NOTE: Only borderless-fullscreen is supported
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }
