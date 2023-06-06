@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace PokeSaveManager.Core.Services
 {
-    public class JsonService
+    public static class JsonService
     {
         private static readonly JsonSerializerOptions JsonConfig = new()
         {
@@ -30,6 +30,17 @@ namespace PokeSaveManager.Core.Services
             {
                 return new T();
             }
+        }
+
+        /// <summary>
+        /// Serializes an object into a JSON file
+        /// </summary>
+        /// <param name="obj">Object to serialize</param>
+        /// <typeparam name="T">Type of the object to serialize</typeparam>
+        /// <returns>Serialized object</returns>
+        public static string Serialize<T>(T obj)
+        {
+            return JsonSerializer.Serialize(obj, JsonConfig);
         }
     }
 }

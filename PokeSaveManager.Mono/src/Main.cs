@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 
 using PokeSaveManager.Core;
 using PokeSaveManager.Core.AppSettings;
-using PokeSaveManager.Core.Services;
 
 namespace PokeSaveManager.Mono.src
 {
@@ -12,7 +11,7 @@ namespace PokeSaveManager.Mono.src
     {
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private readonly AppSettings _appSettings = JsonService.Deserialize<AppSettings>(Constants.AppSettingsPath);
+        private readonly AppSettings _appSettings;
 
         /// <summary>
         /// Instantiates the GraphicsDeviceManager and initializes MonoGame settings
@@ -20,16 +19,18 @@ namespace PokeSaveManager.Mono.src
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _appSettings = new AppSettings();
 
             // MonoGame settings initialization
+            var userSettings = _appSettings.GetAppSettings();
             Content.RootDirectory = Constants.ContentPath;
             Window.Title = $"{Constants.AppName} {Constants.AppVersion}";
             Window.AllowUserResizing = false;
             Window.AllowAltF4 = true;
-            IsMouseVisible = true; // _appSettings.Graphics.MouseVisibility;
-            _graphics.PreferredBackBufferWidth = _appSettings.Graphics.Width;
-            _graphics.PreferredBackBufferHeight = _appSettings.Graphics.Height;
-            _graphics.IsFullScreen = false; // _appSettings.Graphics.Fullscreen;
+            IsMouseVisible = true; // userSettings.Graphics.MouseVisibility;
+            _graphics.PreferredBackBufferWidth = userSettings.Graphics.Width;
+            _graphics.PreferredBackBufferHeight = userSettings.Graphics.Height;
+            _graphics.IsFullScreen = false; // userSettings.Graphics.Fullscreen;
             _graphics.HardwareModeSwitch = false; // NOTE: Only borderless-fullscreen is supported
             _graphics.ApplyChanges();
         }

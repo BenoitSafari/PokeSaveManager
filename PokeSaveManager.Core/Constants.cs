@@ -7,6 +7,5 @@ namespace PokeSaveManager.Core
         public const string AppVersion = "0.0.1";
         public const string ContentPath = "content";
         public static readonly string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static readonly string AppSettingsPath = Path.Combine(AppDataPath, AppName, "appsettings.json");
     }
 }

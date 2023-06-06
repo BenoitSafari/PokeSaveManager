@@ -1,22 +1,28 @@
+using PokeSaveManager.Core.Services;
+
 namespace PokeSaveManager.Core.AppSettings
-
 {
-    public class AppSettings
+    public class AppSettings : IAppSettings
     {
-        public AppSettingsPaths Paths { get; set; } = new AppSettingsPaths();
-        public AppSettingsGraphics Graphics { get; set; } = new AppSettingsGraphics();
-    }
-    public class AppSettingsPaths
-    {
-        public string? RetroArchPath { get; set; }
-        public string? NsNand { get; set; }
-    }
+        private readonly string _appSettingsPath;
 
-    public class AppSettingsGraphics
-    {
-        public int Width { get; set; } = 1280;
-        public int Height { get; set; } = 720;
-        public bool Fullscreen { get; set; } = true;
-        public bool MouseVisibility { get; set; }
+        public AppSettings()
+        {
+            _appSettingsPath = Path.Combine(Constants.AppDataPath, Constants.AppName, "appsettings.json");
+        }
+
+        public AppSettingsModel GetAppSettings()
+        {
+            var appSettings = JsonService.Deserialize<AppSettingsModel>(_appSettingsPath);
+            Save(appSettings);
+
+            return appSettings;
+        }
+
+        public void Save(AppSettingsModel appSettings)
+        {
+            var jsonContent = JsonService.Serialize(appSettings);
+            FileService.SaveFile(_appSettingsPath, jsonContent);
+        }
     }
 }
