@@ -22,15 +22,14 @@ namespace PokeSaveManager.Mono.src
             _appSettings = new AppSettings();
 
             // MonoGame settings initialization
-            var userSettings = _appSettings.GetAppSettings();
             Content.RootDirectory = Constants.ContentPath;
             Window.Title = $"{Constants.AppName} {Constants.AppVersion}";
             Window.AllowUserResizing = false;
             Window.AllowAltF4 = true;
-            IsMouseVisible = true; // userSettings.Graphics.MouseVisibility;
-            _graphics.PreferredBackBufferWidth = userSettings.Graphics.Width;
-            _graphics.PreferredBackBufferHeight = userSettings.Graphics.Height;
-            _graphics.IsFullScreen = false; // userSettings.Graphics.Fullscreen;
+            IsMouseVisible = true; // _appSettings.Content.Graphics.MouseVisibility;
+            _graphics.PreferredBackBufferWidth = _appSettings.Content.Graphics.Width;
+            _graphics.PreferredBackBufferHeight = _appSettings.Content.Graphics.Height;
+            _graphics.IsFullScreen = false; // _appSettings.Content.Graphics.Fullscreen;
             _graphics.HardwareModeSwitch = false; // NOTE: Only borderless-fullscreen is supported
             _graphics.ApplyChanges();
         }
