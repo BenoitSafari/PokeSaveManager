@@ -1,6 +1,6 @@
-namespace PokeSaveManager.Core.Services
+namespace PokeSaveManager.Core.Utils
 {
-    public static class FileService
+    public static class FileUtils
     {
         private static void FindOrCreateDirectory(string path)
         {

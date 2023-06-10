@@ -1,4 +1,4 @@
-using PokeSaveManager.Core.Services;
+using PokeSaveManager.Core.Utils;
 
 namespace PokeSaveManager.Core.AppSettings
 {
@@ -10,7 +10,7 @@ namespace PokeSaveManager.Core.AppSettings
         public AppSettings()
         {
             _appSettingsPath = Path.Combine(Constants.AppDataPath, Constants.AppName, "appsettings.json");
-            Content = JsonService.Deserialize<AppSettingsModel>(_appSettingsPath);
+            Content = JsonUtils.Deserialize<AppSettingsModel>(_appSettingsPath);
 
             Save(Content);
         }
@@ -29,8 +29,8 @@ namespace PokeSaveManager.Core.AppSettings
         /// <param name="content">AppSettingsModel object</param>
         private void Save(AppSettingsModel content)
         {
-            var jsonContent = JsonService.Serialize(content);
-            FileService.SaveFile(_appSettingsPath, jsonContent);
+            var jsonContent = JsonUtils.Serialize(content);
+            FileUtils.SaveFile(_appSettingsPath, jsonContent);
         }
     }
 }

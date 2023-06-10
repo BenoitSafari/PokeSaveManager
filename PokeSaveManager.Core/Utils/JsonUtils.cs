@@ -1,8 +1,8 @@
 using System.Text.Json;
 
-namespace PokeSaveManager.Core.Services
+namespace PokeSaveManager.Core.Utils
 {
-    public static class JsonService
+    public static class JsonUtils
     {
         private static readonly JsonSerializerOptions JsonConfig = new()
         {
