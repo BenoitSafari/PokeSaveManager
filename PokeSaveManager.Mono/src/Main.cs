@@ -2,50 +2,59 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace PokeSaveManager.Mono;
+using PokeSaveManager.Core;
+using PokeSaveManager.Core.AppSettings;
 
-public class Main : Microsoft.Xna.Framework.Game
+namespace PokeSaveManager.Mono.src
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-
-    public Main()
+    public class Main : Game
     {
-        _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private readonly GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private readonly AppSettings _appSettings;
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
+        /// <summary>
+        /// Instantiates the GraphicsDeviceManager and initializes MonoGame settings
+        /// </summary>
+        public Main()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            _appSettings = new AppSettings();
 
-        base.Initialize();
-    }
+            // MonoGame settings initialization
+            Content.RootDirectory = Constants.ContentPath;
+            Window.Title = $"{Constants.AppName} {Constants.AppVersion}";
+            Window.AllowUserResizing = false;
+            Window.AllowAltF4 = true;
+            IsMouseVisible = true; // _appSettings.Content.Graphics.MouseVisibility;
+            _graphics.PreferredBackBufferWidth = _appSettings.Content.Graphics.Width;
+            _graphics.PreferredBackBufferHeight = _appSettings.Content.Graphics.Height;
+            _graphics.IsFullScreen = false; // _appSettings.Content.Graphics.Fullscreen;
+            _graphics.HardwareModeSwitch = false; // NOTE: Only borderless-fullscreen is supported
+            _graphics.ApplyChanges();
+        }
 
-    protected override void LoadContent()
-    {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        protected override void Initialize()
+        {
+            base.Initialize();
+        }
 
-        // TODO: use this.Content to load your game content here
-    }
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
 
-    protected override void Update(GameTime gameTime)
-    {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            base.Update(gameTime);
+        }
 
-        // TODO: Add your update logic here
-
-        base.Update(gameTime);
-    }
-
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        // TODO: Add your drawing code here
-
-        base.Draw(gameTime);
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            base.Draw(gameTime);
+        }
     }
 }

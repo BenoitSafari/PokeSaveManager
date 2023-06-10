@@ -1,3 +1,3 @@
 ﻿
-using var program = new PokeSaveManager.Mono.Main();
+using var program = new PokeSaveManager.Mono.src.Main();
 program.Run();
