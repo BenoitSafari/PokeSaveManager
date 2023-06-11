@@ -3,7 +3,7 @@ namespace PokeSaveManager.Core.AppSettings
 {
     public class AppSettingsModel
     {
-        public AppSettingsModelPaths Paths { get; set; } = new AppSettingsModelPaths();
+        public List<string> SavePaths { get; set; } = new();
         public AppSettingsModelGraphics Graphics { get; set; } = new AppSettingsModelGraphics();
     }
     public class AppSettingsModelPaths

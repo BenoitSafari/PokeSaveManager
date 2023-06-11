@@ -1,17 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using PokeSaveManager.Core;
 using PokeSaveManager.Core.AppSettings;
+using PokeSaveManager.Core.SaveGame;
 
 namespace PokeSaveManager.Mono.src
 {
     public class Main : Game
     {
         private readonly GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
         private readonly AppSettings _appSettings;
+        private SpriteBatch _spriteBatch;
+        private List<SaveFile> _userSaveFiles;
 
         /// <summary>
         /// Instantiates the GraphicsDeviceManager and initializes MonoGame settings
@@ -37,6 +41,7 @@ namespace PokeSaveManager.Mono.src
         protected override void Initialize()
         {
             base.Initialize();
+            _userSaveFiles = Initializer.LoadUserSaves(_appSettings.Content.SavePaths);
         }
 
         protected override void LoadContent()
