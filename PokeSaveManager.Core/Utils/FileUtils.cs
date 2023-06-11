@@ -12,5 +12,10 @@ namespace PokeSaveManager.Core.Utils
             FindOrCreateDirectory(path);
             File.WriteAllText(path, content);
         }
+        public static bool LoadFile(string path, out byte[] data)
+        {
+            data = File.Exists(path) ? File.ReadAllBytes(path) : Array.Empty<byte>();
+            return data.Length > 0;
+        }
     }
 }
