@@ -4,9 +4,14 @@ namespace PokeSaveManager.Core.SaveGame
     {
         public GameVersion Version { get; set; }
         public byte[] Data { get; set; }
-        public SaveFile(byte[] data)
+        private SaveFile(byte[] data)
         {
 
+        }
+
+        public static SaveFile CreateFromData(byte[] data)
+        {
+            return new(data);
         }
     }
 }

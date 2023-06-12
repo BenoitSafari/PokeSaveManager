@@ -19,7 +19,7 @@ namespace PokeSaveManager.Mono.src
             foreach (var dir in directories)
             {
                 var files = FileUtils.LoadFilesFromFolder(dir, Constants.AcceptedSaveFormat);
-                files.ForEach(file => userSaveFiles.Add(new SaveFile(file)));
+                files.ForEach(file => userSaveFiles.Add(SaveFile.CreateFromData(file)));
             }
             return userSaveFiles;
         }
