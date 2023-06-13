@@ -41,7 +41,7 @@ namespace PokeSaveManager.Mono.src
         protected override void Initialize()
         {
             base.Initialize();
-            _userSaveFiles = Initializer.LoadUserSaves(_appSettings.Content.SavePaths);
+            _userSaveFiles = Initializer.GetUserSaves(_appSettings.Content.SavePaths);
         }
 
         protected override void LoadContent()

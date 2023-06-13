@@ -13,15 +13,17 @@ namespace PokeSaveManager.Mono.src
         /// </summary>
         /// <param name="directories">Paths to the directories that contains user's saves</param>
         /// <returns>Deserialized save files</returns>
-        public static List<SaveFile> LoadUserSaves(List<string> directories)
+        public static List<SaveFile> GetUserSaves(List<string> directories)
         {
             List<SaveFile> userSaveFiles = new();
             foreach (var dir in directories)
             {
-                var files = FileUtils.LoadFilesFromFolder(dir, Constants.AcceptedSaveFormat);
+                var files = FileUtils.GetDirectoryFilesFromPatternList(dir, Constants.AcceptedSaveFormat);
                 files.ForEach(file => userSaveFiles.Add(SaveFile.CreateFromData(file)));
             }
             return userSaveFiles;
         }
+
+
     }
 }
